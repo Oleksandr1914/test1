@@ -5,7 +5,7 @@ const Item = ({ item }) => {
   return (
     <ItemBlock to={`${item.id}`}>
       <p>{item.title}</p>
-      <p>{item.data}</p>
+      <p>{item.date}</p>
     </ItemBlock>
   );
 };
