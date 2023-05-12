@@ -8,10 +8,10 @@ const Workspace = () => {
   const location = useLocation();
   const id = location.pathname.slice(1, location.pathname.length);
 
-  const { List, setList } = useNotes();
+  const { List, changeNotesArray } = useNotes();
 
   useEffect(() => {
-    List.forEach((el) => {
+    List.notes.forEach((el) => {
       if (el.id.toString() === id) {
         setNotesText(el.text);
       }
@@ -19,13 +19,13 @@ const Workspace = () => {
   }, [id]);
 
   useEffect(() => {
-    const newNote = List.map((el) => {
+    const newNote = List.notes.map((el) => {
       if (el.id.toString() === id) {
         return { ...el, text: notesText };
       }
       return { ...el };
     });
-    setList(newNote);
+    changeNotesArray(newNote);
   }, [notesText]);
 
   return (

@@ -14,7 +14,7 @@ import { useNotes } from "../../notesContext";
 import { nanoid } from "nanoid";
 
 const Sidebar = () => {
-  const { List, setList } = useNotes();
+  const { List, changeNotesArray } = useNotes();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,10 +22,10 @@ const Sidebar = () => {
     const dateNow = new Date();
     const id = nanoid();
 
-    const newNote = List.map((el) => {
+    const newNote = List.notes.map((el) => {
       return { ...el, isActive: false };
     });
-    setList([
+    changeNotesArray([
       ...newNote,
       {
         id: id,
@@ -45,16 +45,16 @@ const Sidebar = () => {
     const dateNow = new Date();
     const id = nanoid();
     const idLoc = location?.pathname.slice(1, location.pathname.length);
-    const newNote = List.filter((el) => idLoc !== el.id);
+    const newNote = List.notes.filter((el) => idLoc !== el.id);
     const lastElement = newNote[newNote.length - 1];
     const noteIsActive = newNote.map((e) =>
       e.id === lastElement.id ? { ...e, isActive: true } : e
     );
 
-    setList(noteIsActive);
+    changeNotesArray(noteIsActive);
 
     if (newNote.length === 0) {
-      setList([
+      changeNotesArray([
         {
           id: id,
           text: "",
