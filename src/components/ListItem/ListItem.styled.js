@@ -3,8 +3,7 @@ import styled from "styled-components";
 export const ListItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  padding-left: 10px;
+
   width: 300px;
   height: 100%;
   min-height: calc(100vh - 60px);

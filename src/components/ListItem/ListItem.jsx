@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ListItemContainer } from "./ListItem.styled";
 import Item from "./Item/Item";
 import { Outlet } from "react-router-dom";

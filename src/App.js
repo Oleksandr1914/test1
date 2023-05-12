@@ -8,6 +8,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Sidebar />}>
+          <Route index element={<ListItem />} />
           <Route path="/" element={<ListItem />}>
             <Route index element={<Workspace />} />
             <Route path=":id" element={<Workspace />} />
