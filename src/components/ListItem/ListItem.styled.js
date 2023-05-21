@@ -1,12 +1,12 @@
 import styled from "styled-components";
+import { device } from "../../utils/mixins";
 
 export const ListItemContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 300px;
-  height: 100%;
-  min-height: calc(100vh - 60px);
+  width: 250px;
+  height: calc(100vh - 60px);
   background-color: #f9f9f7;
   border-right: 2px solid #e0e0de;
   overflow-y: scroll;
@@ -22,5 +22,11 @@ export const ListItemContainer = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: #e0e0de;
     border-radius: 8px;
+  }
+  ${device.mobile} {
+    width: 300px;
+  }
+  ${device.tablet} {
+    width: 400px;
   }
 `;

@@ -5,7 +5,7 @@ import { useNotes } from "../../notesContext";
 
 const ListItem = () => {
   const { List } = useNotes();
-  //
+
   return (
     <>
       <ListItemContainer>

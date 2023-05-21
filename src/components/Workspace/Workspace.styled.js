@@ -11,8 +11,8 @@ export const WorkspaceContainer = styled.div`
 export const Textarea = styled.textarea`
   padding: 20px;
   width: 100%;
-  height: 100%;
-  min-height: calc(100vh - 60px);
+  font-size: 18px;
+  height: calc(100vh - 60px);
   background-color: #f9f9f7;
   overflow-y: scroll;
   outline: none;

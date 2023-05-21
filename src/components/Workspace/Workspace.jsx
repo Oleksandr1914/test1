@@ -8,7 +8,7 @@ const Workspace = () => {
   const location = useLocation();
   const id = location.pathname.slice(1, location.pathname.length);
 
-  const { List, changeNotesArray } = useNotes();
+  const { List, changeNotesArray, objectEdit } = useNotes();
 
   useEffect(() => {
     List.notes.forEach((el) => {
@@ -21,11 +21,12 @@ const Workspace = () => {
   useEffect(() => {
     const newNote = List.notes.map((el) => {
       if (el.id.toString() === id) {
+        objectEdit({ ...el, text: notesText, isActive: true });
         return { ...el, text: notesText };
       }
-      return { ...el };
+      return objectEdit({ ...el, isActive: false });
     });
-    changeNotesArray(newNote);
+    // changeNotesArray(newNote);
   }, [notesText]);
 
   return (

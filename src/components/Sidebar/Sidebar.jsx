@@ -1,4 +1,3 @@
-import React from "react";
 import {
   SidebarContainer,
   BtnContainer,
@@ -9,63 +8,47 @@ import {
 } from "./Sidebar.styled";
 import Button from "../button/Button";
 import SearchBox from "../SearchBox/SearchBox";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useNotes } from "../../notesContext";
 import { nanoid } from "nanoid";
 
 const Sidebar = () => {
-  const { List, changeNotesArray } = useNotes();
+  const { List, addNoteData, deleteUserHandler, objectEdit } = useNotes();
   const navigate = useNavigate();
   const location = useLocation();
 
   const addItem = () => {
     const dateNow = new Date();
     const id = nanoid();
+    const itemNote = {
+      id: id,
+      text: "",
+      date: dateNow.toLocaleString(),
+      isActive: true,
+    };
 
-    const newNote = List.notes.map((el) => {
-      return { ...el, isActive: false };
-    });
-    changeNotesArray([
-      ...newNote,
-      {
-        id: id,
-        text: "",
-        date: dateNow.toLocaleString(),
-        isActive: true,
-      },
-    ]);
+    addNoteData(itemNote);
     navigate(`/${id}`);
   };
 
-  const deleteItem = () => {
+  const deleteItem = async () => {
     let ok = window.confirm("delete this note?");
     if (!ok) {
       return;
     }
-    const dateNow = new Date();
-    const id = nanoid();
     const idLoc = location?.pathname.slice(1, location.pathname.length);
-    const newNote = List.notes.filter((el) => idLoc !== el.id);
-    const lastElement = newNote[newNote.length - 1];
-    const noteIsActive = newNote.map((e) =>
-      e.id === lastElement.id ? { ...e, isActive: true } : e
-    );
 
-    changeNotesArray(noteIsActive);
+    const deleteObject = await List.notes.find((el) => {
+      if (idLoc === el.id) {
+        return el;
+      }
+    });
 
-    if (newNote.length === 0) {
-      changeNotesArray([
-        {
-          id: id,
-          text: "",
-          date: dateNow.toLocaleString(),
-          isActive: true,
-        },
-      ]);
-      return navigate(`/${id}`);
-    }
+    deleteUserHandler(deleteObject);
+    const objectNav = List.notes[0];
 
-    lastElement ? navigate(`/${lastElement.id}`) : navigate("/");
+    // objectEdit({ ...objectNav, isActive: true });
+    // navigate(`/${objectNav?.id}`);
   };
 
   return (
